@@ -3,9 +3,10 @@ const { Schema } = mongoose;
 
 const noticiaSchema = new Schema(
   {
-    title: String,
-    image: String,
+    titulo: String,
+    img: String,
     texto: String,
+    alt: String,
   },
   {
     timestamps: true,

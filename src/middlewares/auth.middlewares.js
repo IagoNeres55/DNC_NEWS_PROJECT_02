@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import usuarioModel from "../module/usuario/usuario.model.js";
 
-export function authMiddleware(res, req, next) {
+export function authMiddleware(req, res, next) {
   const tokenHeaders = req.headers.authorization;
 
   if (!tokenHeaders) {
@@ -28,14 +28,11 @@ export function authMiddleware(res, req, next) {
         .status(401)
         .send({ message: "Token invalido", error: err.message });
     }
-
-    const user = await usuarioModel.findById(decoded._id);
-
+    const user = await usuarioModel.findById(decoded.id);
     if (!user || !user._id) {
       res.status(401).send({ message: "token invalido" });
     }
-
-    req.id = user._id;
+    // req.id = user._id;
     return next();
   });
 }
